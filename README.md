@@ -6,15 +6,15 @@
 
 我的实现代码放在文章最后, 供大家参考
 
-[参考链接]:<https://blog.csdn.net/u012931582/article/details/70215756>
+[参考链接](https://blog.csdn.net/u012931582/article/details/70215756)
 
 
 
 ### 效果展示
 
-![](markdownsrc\img.png)
+![](<https://raw.githubusercontent.com/marcel0637/segmentation_models_Demo/master/markdownsrc/img.png>)
 
-![](markdownsrc\mask.png)
+![](<https://github.com/marcel0637/segmentation_models_Demo/blob/master/markdownsrc/mask.png?raw=true>)
 
 
 
@@ -28,9 +28,7 @@
 
 - 代码运行在Google Colab上, 这里放一下网上别人的使用教程 ( 使用Colab需要科学上网, 这样比较稳 )
 
-  [Colab]:<https://www.jianshu.com/p/000d2a9d36a0>
-
-  
+  [Colab使用参考链接](https://www.jianshu.com/p/000d2a9d36a0)
 
 ### 整体概述
 
@@ -81,7 +79,7 @@ model = Unet('resnet34', input_shape = (512, 512, 1), encoder_weights = None)#1�
 
 这里创建了一个Unet模型并进行了预编译, 具体参数个人感觉比较好理解, 有不懂的话这里提供中文文档供查阅
 
-[Keras-model]:<https://keras-cn.readthedocs.io/en/latest/legacy/models/model/#_1>
+[Keras-model中文文档参考链接](https://keras-cn.readthedocs.io/en/latest/legacy/models/model/#_1)
 
 
 
@@ -136,9 +134,9 @@ res=model.predict(te_array,5) #对te_array进行预测,5代表图片个数
 
 生成图片效果展示, 前者为标准的, 后者为我们预测的
 
-![](markdownsrc\t1.png)
+![](<https://raw.githubusercontent.com/marcel0637/segmentation_models_Demo/master/markdownsrc/t1.png>)
 
-![](markdownsrc\t1_p.png)
+![](<https://github.com/marcel0637/segmentation_models_Demo/blob/master/markdownsrc/t1_p.png?raw=true>)
 
 此时在较小的数据量下, 大致分割出来了一个轮廓. 
 
@@ -156,7 +154,7 @@ res=model.predict(te_array,5) #对te_array进行预测,5代表图片个数
 
 - 为什么训练结果时候的acc非常小, loss非常大?
 
-  我认为应该是当我们使用0~255分布的标签进行评价的时候, 其相同的部分不如0~1分布的多, 因此会导致acc非常小 ( 我的代码跑出来大概只有0.2 ) ; 同时loss也由于距离增大, 初始值就是很大的, 最后生成出来的也是很大.
+  我认为应该是当我们使用0 ~ 255分布的标签进行评价的时候, 其相同的部分不如0 ~ 1分布的多, 因此会导致acc非常小 ( 我的代码跑出来大概只有0.2 ) ; 同时loss也由于距离增大, 初始值就是很大的, 最后生成出来的也是很大.
 
   因此后面设置了阈值.
 
@@ -224,7 +222,7 @@ def train_image_generator(image_path,label_path,st,ed,batch_size,aug = None):
 
 注 : 如果没有看懂生成器的使用, 这里提供一个个人觉得不错的博客
 
-[生成器的使用]:<https://blog.csdn.net/learning_tortosie/article/details/85243310>
+[生成器的使用参考链接](https://blog.csdn.net/learning_tortosie/article/details/85243310)
 
 
 
@@ -248,7 +246,7 @@ aug = ImageDataGenerator( #定义一个数据增强生成器
 
 具体参数同样给出文档供参考
 
-[ImageDataGenerator ]:<https://keras.io/zh/preprocessing/image/>
+[ImageDataGenerator 参考链接](https://keras.io/zh/preprocessing/image/)
 
 生成器的使用 : aug.flow(数据,size) 可以返回出一个生成器, 生成器每次取出经过增强后的数据size个, 每次调用next即可获取一份. 
 
@@ -304,7 +302,7 @@ his = model.fit_generator(
 
 这是我训练过程中的图片
 
-![](markdownsrc\plot_v4.png)
+![](<https://github.com/marcel0637/segmentation_models_Demo/blob/master/markdownsrc/plot_v4.png?raw=true>)
 
 ### 使用生成器的图像预测和生成
 
@@ -361,7 +359,7 @@ def saveResult(save_path,npyfile):
 
 **最后** , 我的整个项目代码和使用Colab用到的操作放在了我的github上. 如果文章有错请留言指出, 谢谢!
 
-[github]:<https://github.com/marcel0637/segmentation_models_Demo>
+[我的github链接](https://github.com/marcel0637/segmentation_models_Demo)
 
 
 
