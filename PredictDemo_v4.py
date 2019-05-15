@@ -18,7 +18,7 @@ def test_image_generator(image_path,st,ed,batch_size):
         for i in range(batch_size):
             im = Image.open(os.path.join(image_path,str(nowinx)+'.png'))
             tmp_im_array = np.array(im) #图片转numpy数组
-            tmp_im_array = tmp_im_array / 255 #对数组进行压缩
+            tmp_im_array = tmp_im_array / 255 #对数据进行归一化
             tmp_im_array = tmp_im_array[np.newaxis,:,:] #numpy数组添加一维,为了把二维图片转成三维图片集
 
             if len(im_array) == 0:
