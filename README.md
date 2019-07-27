@@ -353,6 +353,58 @@ def saveResult(save_path,npyfile):
 
 - 我最后预测出来的图片有一些小黑点, 调阈值也比较难去除, 希望有人知道如何解决的话可以留言.
 
+------
+
+
+
+### 更新
+
+评论中有人提到对预测的图片进行不同区域上色, 因此我查了一下有没有对应的方法解决. 然后发现OpenCV里面的drawContours函数可以实现, 而且通过对区域中轮廓线的大小进行分别处理, 可以将预测图片中的小黑点去除掉.
+
+这里贴一下主要代码并讲一下我理解的部分
+
+```python
+#进行二值化预处理
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
+ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+
+# 查找轮廓
+contours, hierarchy = cv2.findContours(binary, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)  
+c_max = []
+for i in range(len(contours)):
+    cnt = contours[i]
+    area = cv2.contourArea(cnt)
+ 
+    # 对小的轮廓进行特殊处理.
+    if(area < (h/10*w/10)): #这里的面积阈值过小会导致黑点没法消除
+        c_min = []
+        c_min.append(cnt)
+        # thickness不为-1时，表示画轮廓线，thickness的值表示线的宽度。
+        cv2.drawContours(img, c_min, -1, (255,255,255), thickness=-1)
+        continue
+    #
+    c_max.append(cnt)
+
+# option 1 进行图片轮廓内部颜色填充
+for i in range(len(c_max)):
+    cc = []
+    #由于必须绘制 轮廓内 必须传递list,所以这里创建了一个
+    cc.append(c_max[i])
+    cv2.drawContours(img, cc, -1, (random.randint(0,255), random.randint(0,255),
+         random.randint(0,255)), thickness=-1)
+
+# option 2 不进行轮廓内部填充,直接对轮廓线进行绘制(达到去除图片黑点的效果)
+#cv2.drawContours(img, c_max, -1, (0, 0, 0), 1)
+```
+
+整个代码大概流程为 : 图片进行预处理, 然后利用算法查找出轮廓并存到列表中. 对应轮廓所表示面积小的部分(黑点) , 使用白色填充区域. 对应面积大的部分进行轮廓内随机颜色填充. 对应代码已经更新到github上.
+
+下面展示下效果 : 
+
+[drawContours参考链接1](<https://blog.csdn.net/u014365862/article/details/77720368>)
+
+[drawContours参考链接2](<https://www.jianshu.com/p/e78dcb9f720b>)
+
 
 
 ---
