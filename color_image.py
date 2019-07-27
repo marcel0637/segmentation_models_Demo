@@ -36,6 +36,6 @@ for i in range(len(c_max)):
 
 # option 2 不进行轮廓内部填充,直接对轮廓线进行绘制(达到去除图片黑点的效果)
 #cv2.drawContours(img, c_max, -1, (0, 0, 0), 1)
-
+#cv2.imwrite("img.png", img)  
 cv2.imshow("img", img)
 cv2.waitKey(0)
