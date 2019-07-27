@@ -401,6 +401,10 @@ for i in range(len(c_max)):
 
 下面展示下效果 : 
 
+![](<https://github.com/marcel0637/segmentation_models_Demo/blob/master/markdownsrc/rand_pre.png>)
+
+![](<https://github.com/marcel0637/segmentation_models_Demo/blob/master/markdownsrc/rand_now.png>)
+
 [drawContours参考链接1](<https://blog.csdn.net/u014365862/article/details/77720368>)
 
 [drawContours参考链接2](<https://www.jianshu.com/p/e78dcb9f720b>)
